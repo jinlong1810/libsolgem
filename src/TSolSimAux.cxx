@@ -118,6 +118,31 @@ Double_t TSolSimAux::SAMPAPulseShape(Double_t t, Double_t A, Int_t mode)
 // par[3] = y_mean
 // par[4] = y_sigma
 
+Double_t TSolSimAux::VMMPulseShape(Double_t t, Double_t A)
+{
+    //hard code the parameters here for now for test 160ns shaping
+    Double_t p1 = 0.;
+    Double_t p2 = 0.;
+    Double_t p3 = 0.;
+	Double_t p4 = 0.;
+
+	//50ns shaping time
+	//scaled from 80ns 
+	p1 = 7.32975e+01; //1.17276e+02/1.6;
+	p2 = 2.33628e+00;
+	p3 = 4.05105e+01; //6.48168e+01/1.6;
+	p4 = 1.36690e+00;
+
+	Double_t v = A* TMath::Power(t/p1, p2) * TMath::Exp(-TMath::Power(t/p3, p4));
+	return ( v>0. ) ? v : 0.;
+}
+
+// par[0] = norm
+// par[1] = x_mean
+// par[2] = x_sigma
+// par[3] = y_mean
+// par[4] = y_sigma
+
 Double_t 
 TSolSimAux::Gaus2D(Double_t *x, Double_t *par)
 {
